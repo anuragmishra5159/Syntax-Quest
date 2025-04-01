@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syntax Quest - Profile</title>
+    <style>
+        body { background-color: #1e1e2e; color: white; text-align: center; font-family: Arial, sans-serif; }
+        .container { background: #282a36; padding: 20px; border-radius: 10px; }
+        .profile_img{ border-radius: 5px;
+            box-shadow: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Profile</h1>
+        <img class="profile_img" src="IMG_1274 (1) copy.JPG"width="60px" height="80px">
+        <p>Name: <span id="user-name"></span></p>
+        <button onclick="window.location.href='settings.html'">Settings</button>
+        <button onclick="window.location.href='modes.html'">Back</button>
+    </div>
+    <script>
+        document.getElementById("user-name").innerText = localStorage.getItem("syntaxUser");
+    </script>
+</body>
+</html>
