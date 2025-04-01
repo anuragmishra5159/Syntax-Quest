@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: #1e1e2e;
+            color: white;
+            justify-content: center;
+        }
+
+        h2 {
+            color: rgba(130, 216, 223, 0.801);
+            display: flex;
+            justify-content: center;
+            font-family: 'Times New Roman', Times, serif;
+            text-transform: uppercase;
+
+        }
+
+        .program {
+            border-radius: 22px;
+            border-color: aqua;
+            background-color: rgb(14, 68, 14);
+            padding: 2px;
+        }
+
+        input {
+            width: 40vw;
+            height: 20vh;
+            border-radius: 15px;
+            /* display: flex; */
+            /* justify-content: center; */
+             /* justify-items: center; */
+            /* align-items: center; */
+            /* align-content: center; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>program for practice</h2>
+        <div class="program">
+            <pre>
+        #include <stdio.h>
+        int main() {
+        int i, j, rows;
+          printf("Enter the number of rows: ");
+          scanf("%d", &rows);
+               for (i = 1; i <= rows; ++i) {
+                  for (j = 1; j <= i; ++j) {
+                     printf("* ");
+                  }
+                  printf("\n");
+               }
+               return 0;
+            }
+            
+    </pre>
+        </div>
+        <label>
+            <input type="text" placeholder="Type program here...">
+
+        </label>
+    </div>
+</body>
+
+</html>
