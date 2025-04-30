@@ -1,74 +1,175 @@
+<!-- practice.html -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            height: 100vh;
-            background-color: #1e1e2e;
-            color: white;
-            justify-content: center;
-        }
+  <meta charset="UTF-8">
+  <title>Practice Mode - Syntax Quest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #ffffff;
+      padding: 40px;
+      font-family: 'Segoe UI', sans-serif;
+    }
 
-        h2 {
-            color: rgba(130, 216, 223, 0.801);
-            display: flex;
-            justify-content: center;
-            font-family: 'Times New Roman', Times, serif;
-            text-transform: uppercase;
+    .code-box {
+      background-color: #161b22;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: 1rem;
+      border: 1px solid #00ffff55;
+    }
 
-        }
+    .highlight {
+      background-color: #00ffff33;
+      color: #00ffff;
+      font-weight: bold;
+    }
 
-        .program {
-            border-radius: 22px;
-            border-color: aqua;
-            background-color: rgb(14, 68, 14);
-            padding: 2px;
-        }
+    .wrong {
+      color: #ff4c4c;
+      font-weight: bold;
+    }
 
-        input {
-            width: 40vw;
-            height: 20vh;
-            border-radius: 15px;
-            /* display: flex; */
-            /* justify-content: center; */
-             /* justify-items: center; */
-            /* align-items: center; */
-            /* align-content: center; */
-        }
-    </style>
+    .input-box {
+      background-color: #0d1117;
+      border: 2px solid #00ffff55;
+      color: #ffffff;
+      width: 100%;
+      height: 200px;
+      resize: none;
+      padding: 10px;
+      font-family: monospace;
+    }
+
+    .stats {
+      background-color: #161b22;
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 30px;
+      border: 1px solid #00ffff33;
+    }
+
+    .btn-back {
+      background-color: transparent;
+      color: #00ffff;
+      border: 1px solid #00ffffaa;
+    }
+
+    .btn-back:hover {
+      background-color: #00ffff33;
+    }
+  </style>
 </head>
-
 <body>
-    <div class="container">
-        <h2>program for practice</h2>
-        <div class="program">
-            <pre>
-        #include <stdio.h>
-        int main() {
-        int i, j, rows;
-          printf("Enter the number of rows: ");
-          scanf("%d", &rows);
-               for (i = 1; i <= rows; ++i) {
-                  for (j = 1; j <= i; ++j) {
-                     printf("* ");
-                  }
-                  printf("\n");
-               }
-               return 0;
-            }
-            
-    </pre>
-        </div>
-        <label>
-            <input type="text" placeholder="Type program here...">
 
-        </label>
-    </div>
+  <h2 class="text-center mb-4">🧠 Practice Mode</h2>
+
+  <!-- Code Snippet Display with Highlight -->
+  <div class="code-box" id="displayArea"></div>
+
+  <!-- Text Input -->
+  <textarea id="userInput" class="input-box" placeholder="Start typing here..." oninput="checkTyping()"></textarea>
+
+  <!-- Stats -->
+  <div class="stats">
+    <p><strong>WPM:</strong> <span id="wpm">0</span></p>
+    <p><strong>Accuracy:</strong> <span id="accuracy">100%</span></p>
+    <p><strong>Errors:</strong> <span id="errors">0</span></p>
+    <p><strong>Current Letter:</strong> <span id="currentChar">–</span></p>
+  </div>
+
+  
+
+  <!-- Back Button -->
+  <div class="text-center mt-4">
+    <a href="start.html" class="btn btn-back">⬅ Back to Start</a>
+  </div>
+
+  <script>
+    const codeText = `int main() {\n  printf("Hello, World!");\n  return 0;\n}`;
+    const displayArea = document.getElementById('displayArea');
+    const inputBox = document.getElementById('userInput');
+    const wpmDisplay = document.getElementById('wpm');
+    const accDisplay = document.getElementById('accuracy');
+    const errorDisplay = document.getElementById('errors');
+    const currentCharDisplay = document.getElementById('currentChar');
+
+    let startTime = null;
+    let errorCount = 0;
+
+    function renderCode(userInput) {
+  let result = "";
+  errorCount = 0;
+
+  let startIndex = 0;
+  
+  // Loop through codeText and find the first non-space character (not whitespace, newline, or tab)
+  for (let i = 0; i < codeText.length; i++) {
+    if (codeText[i] !== " " && codeText[i] !== "\t" && codeText[i] !== "\n") {
+      startIndex = i;
+      break;
+    }
+  }
+
+  // Start comparing from the first non-whitespace character
+  for (let i = startIndex; i < codeText.length; i++) {
+    let expectedChar =
+      codeText[i] === " " ? "&nbsp;" :
+      codeText[i] === "\n" ? "<br>" :
+      codeText[i] === "\t" ? "&nbsp;&nbsp;&nbsp;&nbsp;" :
+      codeText[i];
+
+    const actualChar = userInput[i - startIndex];  // Adjusted user input index for comparison
+
+    if (i < userInput.length + startIndex) {
+      if (actualChar === codeText[i]) {
+        result += `<span>${expectedChar}</span>`;
+      } else {
+        result += `<span class="wrong">${expectedChar}</span>`;
+        errorCount++;
+      }
+    } else if ((i - startIndex) === userInput.length) {
+      result += `<span class="highlight">${expectedChar}</span>`;
+      currentCharDisplay.textContent =
+        codeText[i] === "\n" ? "↵ (Enter)" :
+        codeText[i] === "\t" ? "↹ (Tab)" :
+        codeText[i];
+    } else {
+      result += `<span style="opacity:0.4">${expectedChar}</span>`;
+    }
+  }
+
+  displayArea.innerHTML = result;
+}
+
+
+    function checkTyping() {
+      const userInput = inputBox.value;
+      if (!startTime) startTime = new Date();
+
+      renderCode(userInput);
+
+      const elapsed = (new Date() - startTime) / 1000 / 60; // in minutes
+      const words = userInput.length / 5;
+      const wpm = Math.round(words / elapsed);
+      const correctChars = userInput.length - errorCount;
+      const accuracy = Math.max(0, Math.round((correctChars / userInput.length) * 100));
+
+      wpmDisplay.textContent = isNaN(wpm) ? 0 : wpm;
+      accDisplay.textContent = isNaN(accuracy) ? '100%' : `${accuracy}%`;
+      errorDisplay.textContent = errorCount;
+    }
+
+    // Initial load
+    renderCode("");
+    currentCharDisplay.textContent = codeText[0];
+  </script>
+
 </body>
-
 </html>
