@@ -1,31 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syntax Quest - Progress</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body { background-color: #1e1e2e; color: white; text-align: center; font-family: Arial, sans-serif; }
-        .container { background: #282a36; padding: 20px; border-radius: 10px; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Progress Graph | Syntax Quest</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body {
+      background-color: #121212;
+      color: #fff;
+    }
+    .card {
+      background-color: #1f1f1f;
+      border: none;
+      border-radius: 16px;
+    }
+    canvas {
+      max-width:%;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Your Progress</h1>
-        <canvas id="progressChart"></canvas>
-        <button onclick="window.location.href='modes.html'">Back</button>
+  <div class="container my-5">
+    <h2 class="text-center mb-4">Your Progress Summary</h2>
+
+    <div class="row g-4">
+      <!-- Accuracy Chart -->
+      <div class="col-md-6">
+        <div class="card p-4">
+          <h5>Accuracy (%) Over Levels</h5>
+          <canvas id="accuracyChart"></canvas>
+        </div>
+      </div>
+
+      <!-- WPM Chart -->
+      <div class="col-md-6">
+        <div class="card p-4">
+          <h5>Typing Speed (WPM)</h5>
+          <canvas id="wpmChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Stars Chart -->
+      <div class="col-12">
+        <div class="card p-4">
+          <h5>Stars Earned Per Level</h5>
+          <canvas id="starsChart"></canvas>
+        </div>
+      </div>
     </div>
-    <script>
-        let ctx = document.getElementById("progressChart").getContext("2d");
-        new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: ["Level 1", "Level 2", "Level 3", "Level 4"],
-                datasets: [{ label: "Stars Earned", data: [3, 2, 1, 0], backgroundColor: "#ff6600" }]
-            },
-            options: { scales: { y: { beginAtZero: true, max: 3 } } }
-        });
-    </script>
+  </div>
+
+  <!-- Chart.js Config -->
+  <script>
+    // Sample data
+    const levelLabels = ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5'];
+
+    const accuracyData = [95, 88, 92, 90, 85];
+    const wpmData = [28, 34, 32, 37, 40];
+    const starsData = [3, 2, 3, 3, 2];
+
+    // Accuracy Chart
+    new Chart(document.getElementById('accuracyChart'), {
+      type: 'line',
+      data: {
+        labels: levelLabels,
+        datasets: [{
+          label: 'Accuracy %',
+          data: accuracyData,
+          borderColor: '#00ffcc',
+          backgroundColor: 'rgba(0,255,204,0.1)',
+          tension: 0.3,
+          fill: true,
+          pointBackgroundColor: '#00ffcc'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: true } },
+        scales: {
+          y: { beginAtZero: true, max: 100 }
+        }
+      }
+    });
+
+    // WPM Chart
+    new Chart(document.getElementById('wpmChart'), {
+      type: 'bar',
+      data: {
+        labels: levelLabels,
+        datasets: [{
+          label: 'WPM',
+          data: wpmData,
+          backgroundColor: '#3399ff'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: true } },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    // Stars Chart
+    new Chart(document.getElementById('starsChart'), {
+      type: 'radar',
+      data: {
+        labels: levelLabels,
+        datasets: [{
+          label: 'Stars Earned',
+          data: starsData,
+          backgroundColor: 'rgba(255, 215, 0, 0.2)',
+          borderColor: 'gold',
+          pointBackgroundColor: 'gold'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            suggestedMin: 0,
+            suggestedMax: 3
+          }
+        }
+      }
+    });
+  </script>
 </body>
 </html>
