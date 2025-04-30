@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syntax Quest</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #ffffff;
+      font-family: 'Roboto', sans-serif;
+    }
+    .navbar-brand {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      color: #00ffe1;
+    }
+    .btn-glow {
+      background-color: #00ffe1;
+      color: #0d1117;
+      font-weight: bold;
+      box-shadow: 0 0 10px #00ffe1;
+      transition: 0.3s ease;
+    }
+    .btn-glow:hover {
+      box-shadow: 0 0 20px #00ffe1;
+    }
+    .hero {
+      padding: 100px 0;
+    }
+    .feature-icon {
+      font-size: 2rem;
+      color: #a855f7;
+    }
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      color: #00ffe1;
+    }
+    footer {
+      padding: 40px 0;
+      background-color: #161b22;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+  <a class="navbar-brand" href="landing.html">&lt;/&gt; Syntax Quest</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" href="landing.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+      <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+      <li class="nav-item"><a class="nav-link" href="#developers">Developer</a></li>
+      <li class="nav-item"><a class="btn btn-glow ms-3" href="signin.html">Login / Sign Up</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero text-center text-md-start container d-flex align-items-center">
+  <div class="row align-items-center">
+    <div class="col-md-6">
+      <h1 class="display-4 fw-bold">Level Up Your Typing. Master Code.</h1>
+      <p class="lead">Practice real programming code in a fun, gamified typing experience.</p>
+      <a href="start.html" class="btn btn-glow btn-lg mt-3">🚀 Start Playing</a>
+    </div>
+    <div class="col-md-6 text-center">
+      <img src="logo.png" class="img-fluid" alt="Syntax Quest Terminal">
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="container py-5">
+  <h2 class="section-title text-center mb-4">What is Syntax Quest?</h2>
+  <p class="text-center mb-5">Syntax Quest is a web-based typing game where you practice real programming languages instead of plain English paragraphs. It's fun, challenging, and educational.</p>
+  <div class="row text-center">
+    <div class="col-md-4 mb-4">
+      <div class="feature-icon mb-2">🎮</div>
+      <h5>Gamified Learning</h5>
+      <p>Typing Master meets coding practice for a unique learning experience.</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="feature-icon mb-2">🧠</div>
+      <h5>Boost Coding Accuracy</h5>
+      <p>Improve syntax familiarity while increasing typing speed and accuracy.</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="feature-icon mb-2">⌨️</div>
+      <h5>Practice Real Code</h5>
+      <p>Choose your language: C, C++, Python, and more coming soon!</p>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="container py-5">
+  <h2 class="section-title text-center mb-4">Key Features</h2>
+  <div class="row text-center">
+    <div class="col-md-4 mb-4">
+      <h5>Practice Mode</h5>
+      <p>Free-typing with real code, no time pressure.</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <h5>Timed Challenges</h5>
+      <p>Race against time to complete code accurately.</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <h5>Debugging Mode</h5>
+      <p>Fix syntax errors to complete the level.</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <h5>Multi-language Support</h5>
+      <p>Switch between programming languages as needed.</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <h5>Performance Stats</h5>
+      <p>Track your WPM, accuracy, and progress graphically.</p>
+    </div>
+    <div class="col-md-4 mb-4">
+      <h5>Leaderboard</h5>
+      <p>Compete with others and earn your place at the top.</p>
+    </div>
+  </div>
+</section>
+<!-- Developer Section -->
+<section id="developers" class="container py-5">
+  <h2 class="section-title text-center mb-4">Meet the Developers</h2>
+  <p class="text-center mb-5">This game is developed by Neeraj Sharma and Anurag Mishra, first-year students in Computer Science and Design.</p>
+  <div class="row text-center">
+    <div class="col-md-6 mb-4">
+      <div style="overflow: hidden; display: inline-block; border-radius: 50%;">
+        <img src="neeraj.jpeg" class="img-fluid developer-img zoom-effect mb-3" alt="Neeraj Sharma" style="width: 170px; height: 170px;">
+      </div>
+      <h5>Neeraj Sharma</h5>
+      <p>First Year Computer Science and Design Student</p>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div style="overflow: hidden; display: inline-block; border-radius: 50%;">
+        <img src="anurag.jpeg" class="img-fluid developer-img zoom-effect mb-3" alt="Neeraj Sharma" style="width: 170px; height: 170px;">
+      </div>
+      <h5>Anurag Mishra</h5>
+      <p>First Year Computer Science and Design Student</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .zoom-effect {
+    transition: transform 0.3s ease;
+    transform: scale(1.1); /* Zoomed in */
+  }
+
+  .zoom-effect:hover {
+    transform: scale(1.2);
+  }
+</style>
+
+
+
+
+<!-- Footer -->
+<footer class="text-center">
+  <p>&copy; 2025 Syntax Quest. All rights reserved.</p>
+  <p>Email: support@syntaxquest.dev | Follow us on
+    <a href="https://www.youtube.com" class="text-decoration-none text-info">Twitter</a>,
+    <a href="#" class="text-decoration-none text-info">LinkedIn</a>
+  </p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
