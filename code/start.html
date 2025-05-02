@@ -1,137 +1,103 @@
+<!-- start.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Progress Graph | Syntax Quest</title>
-  
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <!-- Chart.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+  <meta charset="UTF-8">
+  <title>Syntax Quest - Start Playing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      background-color: #121212;
-      color: #fff;
+      background-color: #0d1117;
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      padding: 40px;
     }
+
+    h1, h3 {
+      color: #00ffff;
+      margin-bottom: 30px;
+    }
+
     .card {
-      background-color: #1f1f1f;
-      border: none;
-      border-radius: 16px;
+      background-color: #161b22;
+      border: 1px solid #00ffff55;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+      margin: 20px auto;
+      max-width: 600px;
     }
-    canvas {
-      max-width:%;
+
+    .form-select {
+      background-color: #0d1117;
+      color: #ffffff;
+      border: 1px solid #00ffff77;
+    }
+
+    .btn-custom {
+      margin: 10px;
+      width: 200px;
+      font-weight: 600;
+      color: #00ffff;
+      border: 1px solid #00ffffaa;
+      background-color: transparent;
+      transition: all 0.3s ease;
+    }
+
+    .btn-custom:hover {
+      background-color: #00ffff33;
+      color: #ffffff;
+      border-color: #00ffff;
+    }
+
+    .btn-progress {
+      background-color: #28a745;
+      color: white;
+      font-weight: 600;
+      border-radius: 30px;
+    }
+
+    .btn-progress:hover {
+      background-color: #218838;
     }
   </style>
 </head>
 <body>
-  <div class="container my-5">
-    <h2 class="text-center mb-4">Your Progress Summary</h2>
 
-    <div class="row g-4">
-      <!-- Accuracy Chart -->
-      <div class="col-md-6">
-        <div class="card p-4">
-          <h5>Accuracy (%) Over Levels</h5>
-          <canvas id="accuracyChart"></canvas>
-        </div>
-      </div>
+  <h1>⚡ Start Your Syntax Quest</h1>
 
-      <!-- WPM Chart -->
-      <div class="col-md-6">
-        <div class="card p-4">
-          <h5>Typing Speed (WPM)</h5>
-          <canvas id="wpmChart"></canvas>
-        </div>
-      </div>
-
-      <!-- Stars Chart -->
-      <div class="col-12">
-        <div class="card p-4">
-          <h5>Stars Earned Per Level</h5>
-          <canvas id="starsChart"></canvas>
-        </div>
-      </div>
-    </div>
+  <!-- Language Selection -->
+  <div class="card p-4">
+    <h3>🧠 Select Programming Language</h3>
+    <select id="language" class="form-select text-light mt-3">
+      <option value="c">C</option>
+      <option value="cpp">C++</option>
+      <option value="python">Python</option>
+    </select>
   </div>
 
-  <!-- Chart.js Config -->
+  <!-- Game Mode Selection -->
+  <div class="card p-4">
+    <h3>🎮 Choose Game Mode</h3>
+    <button onclick="goToMode('practice')" class="btn btn-custom">Practice Mode</button>
+    <button onclick="goToMode('timed')" class="btn btn-custom">Timed Mode</button>
+    <button onclick="goToMode('debugging')" class="btn btn-custom">Debugging Mode</button>
+  </div>
+
+  <!-- View Progress -->
+  <div class="mt-4">
+    <a href="progress.html" class="btn btn-progress px-4 py-2">📊 View Progress</a>
+  </div>
+
   <script>
-    // Sample data
-    const levelLabels = ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5'];
+    function goToMode(mode) {
+      const language = document.getElementById("language").value;
+      window.location.href = `${mode}.html?lang=${language}`;
+    }
 
-    const accuracyData = [95, 88, 92, 90, 85];
-    const wpmData = [28, 34, 32, 37, 40];
-    const starsData = [3, 2, 3, 3, 2];
-
-    // Accuracy Chart
-    new Chart(document.getElementById('accuracyChart'), {
-      type: 'line',
-      data: {
-        labels: levelLabels,
-        datasets: [{
-          label: 'Accuracy %',
-          data: accuracyData,
-          borderColor: '#00ffcc',
-          backgroundColor: 'rgba(0,255,204,0.1)',
-          tension: 0.3,
-          fill: true,
-          pointBackgroundColor: '#00ffcc'
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: true } },
-        scales: {
-          y: { beginAtZero: true, max: 100 }
-        }
-      }
-    });
-
-    // WPM Chart
-    new Chart(document.getElementById('wpmChart'), {
-      type: 'bar',
-      data: {
-        labels: levelLabels,
-        datasets: [{
-          label: 'WPM',
-          data: wpmData,
-          backgroundColor: '#3399ff'
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: true } },
-        scales: {
-          y: { beginAtZero: true }
-        }
-      }
-    });
-
-    // Stars Chart
-    new Chart(document.getElementById('starsChart'), {
-      type: 'radar',
-      data: {
-        labels: levelLabels,
-        datasets: [{
-          label: 'Stars Earned',
-          data: starsData,
-          backgroundColor: 'rgba(255, 215, 0, 0.2)',
-          borderColor: 'gold',
-          pointBackgroundColor: 'gold'
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          r: {
-            suggestedMin: 0,
-            suggestedMax: 3
-          }
-        }
-      }
-    });
+    
   </script>
+
 </body>
 </html>
