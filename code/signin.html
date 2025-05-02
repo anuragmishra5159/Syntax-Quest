@@ -1,137 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Progress Graph | Syntax Quest</title>
-  
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <!-- Chart.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syntax Quest - Sign In / Sign Up</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     body {
-      background-color: #121212;
-      color: #fff;
+      background-color: #0d1117;
+      color: #ffffff;
+      font-family: 'Roboto', sans-serif;
     }
-    .card {
-      background-color: #1f1f1f;
-      border: none;
-      border-radius: 16px;
+    .navbar-brand {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      color: #00ffe1;
     }
-    canvas {
-      max-width:%;
+    .btn-glow {
+      background-color: #00ffe1;
+      color: #0d1117;
+      font-weight: bold;
+      box-shadow: 0 0 10px #00ffe1;
+      transition: 0.3s ease;
+    }
+    .btn-glow:hover {
+      box-shadow: 0 0 20px #00ffe1;
+    }
+    .form-container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #161b22;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 255, 225, 0.5);
+    }
+    .form-title {
+      font-family: 'Orbitron', sans-serif;
+      color: #00ffe1;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .form-label, .form-input {
+      margin-bottom: 10px;
+    }
+    footer {
+      padding: 40px 0;
+      background-color: #161b22;
+      color: #999;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="container my-5">
-    <h2 class="text-center mb-4">Your Progress Summary</h2>
 
-    <div class="row g-4">
-      <!-- Accuracy Chart -->
-      <div class="col-md-6">
-        <div class="card p-4">
-          <h5>Accuracy (%) Over Levels</h5>
-          <canvas id="accuracyChart"></canvas>
-        </div>
-      </div>
-
-      <!-- WPM Chart -->
-      <div class="col-md-6">
-        <div class="card p-4">
-          <h5>Typing Speed (WPM)</h5>
-          <canvas id="wpmChart"></canvas>
-        </div>
-      </div>
-
-      <!-- Stars Chart -->
-      <div class="col-12">
-        <div class="card p-4">
-          <h5>Stars Earned Per Level</h5>
-          <canvas id="starsChart"></canvas>
-        </div>
-      </div>
-    </div>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+  <a class="navbar-brand" href="landing.html">&lt;/&gt; Syntax Quest</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" href="landing.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Developer</a></li>
+    </ul>
   </div>
+</nav>
 
-  <!-- Chart.js Config -->
-  <script>
-    // Sample data
-    const levelLabels = ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5'];
+<!-- Sign In Form -->
+<div class="form-container">
+  <h2 class="form-title">Sign In</h2>
+  <form id="signin-form" autocomplete="on">
+    <div class="mb-3">
+      <label for="email" class="form-label">Email address</label>
+      <input type="email" id="email" class="form-input form-control" placeholder="Enter your email" required>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" id="password" class="form-input form-control" placeholder="Enter your password" required>
+    </div>
+    <button type="submit" class="btn btn-glow w-100">Sign In</button>
+    <div class="mt-3 text-center">
+      <p>Don't have an account? <a href="javascript:void(0);" id="show-signup" class="text-info">Sign Up</a></p>
+    </div>
+  </form>
+</div>
 
-    const accuracyData = [95, 88, 92, 90, 85];
-    const wpmData = [28, 34, 32, 37, 40];
-    const starsData = [3, 2, 3, 3, 2];
+<!-- Sign Up Form -->
+<div class="form-container" id="signup-form-container" style="display: none;">
+  <h2 class="form-title">Sign Up</h2>
+  <form id="signup-form">
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" id="username" class="form-input form-control" placeholder="Enter your username" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email address</label>
+      <input type="email" id="signup-email" class="form-input form-control" placeholder="Enter your email" required>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" id="signup-password" class="form-input form-control" placeholder="Enter your password" required>
+    </div>
+    <div class="mb-3">
+      <label for="confirm-password" class="form-label">Confirm Password</label>
+      <input type="password" id="confirm-password" class="form-input form-control" placeholder="Confirm your password" required>
+    </div>
+    <button type="submit" class="btn btn-glow w-100">Sign Up</button>
+    <div class="mt-3 text-center">
+      <p>Already have an account? <a href="javascript:void(0);" id="show-signin" class="text-info">Sign In</a></p>
+    </div>
+  </form>
+</div>
 
-    // Accuracy Chart
-    new Chart(document.getElementById('accuracyChart'), {
-      type: 'line',
-      data: {
-        labels: levelLabels,
-        datasets: [{
-          label: 'Accuracy %',
-          data: accuracyData,
-          borderColor: '#00ffcc',
-          backgroundColor: 'rgba(0,255,204,0.1)',
-          tension: 0.3,
-          fill: true,
-          pointBackgroundColor: '#00ffcc'
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: true } },
-        scales: {
-          y: { beginAtZero: true, max: 100 }
-        }
-      }
-    });
+<!-- Footer -->
+<footer>
+  <p>&copy; 2025 Syntax Quest. All rights reserved.</p>
+</footer>
 
-    // WPM Chart
-    new Chart(document.getElementById('wpmChart'), {
-      type: 'bar',
-      data: {
-        labels: levelLabels,
-        datasets: [{
-          label: 'WPM',
-          data: wpmData,
-          backgroundColor: '#3399ff'
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: true } },
-        scales: {
-          y: { beginAtZero: true }
-        }
-      }
-    });
+<script>
+  // Check if user is already signed in
+  if (localStorage.getItem("isLoggedIn") === "true") {
+    window.location.href = "dashboard.html"; // Redirect to dashboard page
+  }
 
-    // Stars Chart
-    new Chart(document.getElementById('starsChart'), {
-      type: 'radar',
-      data: {
-        labels: levelLabels,
-        datasets: [{
-          label: 'Stars Earned',
-          data: starsData,
-          backgroundColor: 'rgba(255, 215, 0, 0.2)',
-          borderColor: 'gold',
-          pointBackgroundColor: 'gold'
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          r: {
-            suggestedMin: 0,
-            suggestedMax: 3
-          }
-        }
-      }
-    });
-  </script>
+  // Handle Sign In
+  document.getElementById("signin-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    // Dummy login check (replace with actual authentication logic)
+    if (email === "user@example.com" && password === "password123") {
+      localStorage.setItem("isLoggedIn", "true");
+      window.location.href = "dashboard.html"; // Redirect to the dashboard
+    } else {
+      alert("Invalid login credentials!");
+    }
+  });
+
+  // Handle Sign Up
+  document.getElementById("signup-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    let username = document.getElementById("username").value;
+    let email = document.getElementById("signup-email").value;
+    let password = document.getElementById("signup-password").value;
+    let confirmPassword = document.getElementById("confirm-password").value;
+
+    if (password === confirmPassword) {
+      // Dummy signup check (replace with actual backend integration)
+      alert("Sign Up Successful! Please Sign In.");
+      document.getElementById("signup-form-container").style.display = "none";
+      document.getElementById("signin-form").style.display = "block";
+    } else {
+      alert("Passwords do not match!");
+    }
+  });
+
+  // Switch to Sign Up Form
+  document.getElementById("show-signup").addEventListener("click", function() {
+    document.getElementById("signin-form").style.display = "none";
+    document.getElementById("signup-form-container").style.display = "block";
+  });
+
+  // Switch to Sign In Form
+  document.getElementById("show-signin").addEventListener("click", function() {
+    document.getElementById("signup-form-container").style.display = "none";
+    document.getElementById("signin-form").style.display = "block";
+  });
+</script>
+
+<script>
+
+  alert("Welcome to syntax quest")
+  // Check if already signed in
+  if (localStorage.getItem("isLoggedIn") === "true") {
+    window.location.href = "dashboard.html";
+  }
+
+  // Handle Sign In
+  document.getElementById("signin-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const savedEmail = localStorage.getItem("userEmail");
+    const savedPassword = localStorage.getItem("userPassword");
+
+    if (email === savedEmail && password === savedPassword) {
+      localStorage.setItem("isLoggedIn", "true");
+      window.location.href = "dashboard.html";
+    } else {
+      alert("Invalid email or password.");
+    }
+  });
+
+  // Handle Sign Up
+  document.getElementById("signup-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("signup-email").value;
+    const password = document.getElementById("signup-password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    localStorage.setItem("userName", username);
+    localStorage.setItem("userEmail", email);
+    localStorage.setItem("userPassword", password);
+
+    alert("Sign Up successful! Please log in.");
+
+    // Switch to Sign In form
+    document.getElementById("signup-form-container").style.display = "none";
+    document.getElementById("signin-form").style.display = "block";
+  });
+
+  // Toggle forms
+  document.getElementById("show-signup").addEventListener("click", function() {
+    document.getElementById("signin-form").style.display = "none";
+    document.getElementById("signup-form-container").style.display = "block";
+  });
+
+  document.getElementById("show-signin").addEventListener("click", function() {
+    document.getElementById("signup-form-container").style.display = "none";
+    document.getElementById("signin-form").style.display = "block";
+  });
+</script>
+
 </body>
 </html>
